@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- {% load static %} -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="icon" type="image/x-icon" href="{% static 'home/GoBroker_logo.webp' %}"> -->
+    <title>Register - GoBroker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #333333;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ff6347;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #444444;
+            color: #ffffff;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background-color: #ff6347;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #e5533a;
+            transform: scale(1.05);
+        }
+        .form-links {
+            margin-top: 20px;
+        }
+        .form-links a {
+            color: #ff6347;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .form-links a:hover {
+            color: #e5533a;
+        }
+        .error-message {
+            color: #ff6347;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm_password").value;
+            let errorMessage = document.getElementById("error-message");
+
+            if (password !== confirmPassword) {
+                errorMessage.style.display = "block";
+                errorMessage.textContent = "Passwords do not match!";
+                event.preventDefault(); // Prevent form submission
+                return false;
+            } else {
+                errorMessage.style.display = "none";
+                return true;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form method="post" enctype="multipart/form-data" onsubmit="validateForm(event)">
+            {% csrf_token %}
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+            <p id="error-message" class="error-message">Passwords do not match!</p>
+            <input type="submit" value="Register">
+        </form>
+        <div class="form-links">
+            <p>Already have an account? <a href="/login">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>

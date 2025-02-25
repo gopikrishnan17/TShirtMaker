@@ -1,0 +1,82 @@
+body {
+  background-color: #121212;
+  color: #f1f1f1;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style for the clothing variant selector */
+.variant-selector {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.variant-selector select {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+/* Container holding the t-shirt sections */
+.tshirt-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Each t-shirt section */
+.tshirt-section {
+  position: relative; /* Ensures absolute positioned elements inside are relative to this container */
+  width: 300px;
+  border: 1px solid #333;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Base t-shirt image */
+.base-image {
+  width: 100%;
+  display: block;
+}
+
+/* Designated upload area */
+/* (Positioning is set dynamically via JavaScript based on configuration) */
+.designated-area {
+  cursor: pointer;
+}
+
+/* Upload placeholder: using a plus icon for a subtle indication */
+.upload-placeholder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: #fff;
+  font-size: 48px;
+  opacity: 0.5;
+}
+
+/* Overlay image: the printed design */
+.overlay-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 1; /* Full opacity */
+  pointer-events: none;
+}
