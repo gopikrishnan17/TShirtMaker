@@ -4,145 +4,121 @@
 <head>
   <meta charset="UTF-8">
   <title>T-shirt Customizer - Modular</title>
-  <!-- Dropzone CSS from CDN -->
+  <!-- External Dropzone CSS for upload styling -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css">
-  <!-- Custom CSS -->
+  <!-- Custom CSS for the app -->
   <link rel="stylesheet" href="{% static 'css/tshirt_customizer_modular.css' %}">
 </head>
 <body>
-  <h1>T-shirt Customizer</h1>
-
-  <!-- Clothing Variant Selection -->
-  <div class="variant-selector">
-    <label for="clothingVariant">Choose Clothing Variant:</label>
-    <select id="clothingVariant">
-      <option value="half_sleeve_black">Half Sleeve - Black</option>
-      <option value="half_sleeve_white">Half Sleeve - White</option>
-      <!-- Add more options as needed -->
+  <header>
+    <h1>T-shirt Customizer</h1>
+  </header>
+  
+  <!-- Clothing Style and Color Selection -->
+  <section class="variant-selector" aria-label="Clothing Variant Selector">
+    <label for="clothingStyle">Choose Clothing Style:</label>
+    <select id="clothingStyle" name="clothingStyle" aria-label="Select Clothing Style">
+      <!-- Options populated dynamically -->
     </select>
-  </div>
-
-  <!-- T-shirt Display Container -->
-  <div class="tshirt-container">
     
-    <!-- Front Section -->
-    <div class="tshirt-section" id="section-front">
+    <label for="clothingColor">Choose Colour:</label>
+    <select id="clothingColor" name="clothingColor" aria-label="Select Clothing Colour">
+      <!-- Options populated dynamically -->
+    </select>
+  </section>
+  
+  <!-- Customization Area -->
+  <main class="tshirt-container" aria-label="T-shirt Display">
+    <article class="tshirt-section" id="section-front">
       <img class="base-image" id="front-base" src="" alt="Front T-shirt">
-      <!-- Designated area for upload -->
-      <div class="designated-area" id="front-dropzone">
-         <div class="upload-placeholder">&#43;</div>
+      <div class="designated-area" id="front-dropzone" tabindex="0" aria-label="Front Upload Area">
+         <div class="upload-placeholder">+</div>
          <img class="overlay-image" id="front-overlay" src="" alt="Front Design" style="display:none;">
       </div>
-    </div>
-
-    <!-- Back Section -->
-    <div class="tshirt-section" id="section-back">
+    </article>
+    
+    <article class="tshirt-section" id="section-back">
       <img class="base-image" id="back-base" src="" alt="Back T-shirt">
-      <div class="designated-area" id="back-dropzone">
-         <div class="upload-placeholder">&#43;</div>
+      <div class="designated-area" id="back-dropzone" tabindex="0" aria-label="Back Upload Area">
+         <div class="upload-placeholder">+</div>
          <img class="overlay-image" id="back-overlay" src="" alt="Back Design" style="display:none;">
       </div>
-    </div>
-
-    <!-- Left Sleeve Section -->
-    <div class="tshirt-section" id="section-leftSleeve">
-      <img class="base-image" id="left-base" src="" alt="Left Sleeve T-shirt">
-      <div class="designated-area" id="left-dropzone">
-         <div class="upload-placeholder">&#43;</div>
-         <img class="overlay-image" id="left-overlay" src="" alt="Left Sleeve Design" style="display:none;">
-      </div>
-    </div>
-
-    <!-- Right Sleeve Section -->
-    <div class="tshirt-section" id="section-rightSleeve">
-      <img class="base-image" id="right-base" src="" alt="Right Sleeve T-shirt">
-      <div class="designated-area" id="right-dropzone">
-         <div class="upload-placeholder">&#43;</div>
-         <img class="overlay-image" id="right-overlay" src="" alt="Right Sleeve Design" style="display:none;">
-      </div>
-    </div>
+    </article>
     
-  </div>
+    <article class="tshirt-section" id="section-leftSleeve">
+      <img class="base-image" id="leftSleeve-base" src="" alt="Left Sleeve T-shirt">
+      <div class="designated-area" id="leftSleeve-dropzone" tabindex="0" aria-label="Left Sleeve Upload Area">
+         <div class="upload-placeholder">+</div>
+         <img class="overlay-image" id="leftSleeve-overlay" src="" alt="Left Sleeve Design" style="display:none;">
+      </div>
+    </article>
+    
+    <article class="tshirt-section" id="section-rightSleeve">
+      <img class="base-image" id="rightSleeve-base" src="" alt="Right Sleeve T-shirt">
+      <div class="designated-area" id="rightSleeve-dropzone" tabindex="0" aria-label="Right Sleeve Upload Area">
+         <div class="upload-placeholder">+</div>
+         <img class="overlay-image" id="rightSleeve-overlay" src="" alt="Right Sleeve Design" style="display:none;">
+      </div>
+    </article>
+  </main>
 
-  <!-- Load External Config -->
+  <!-- Save Button -->
+  <section class="controls">
+    <button id="save-btn">Save Design</button>
+  </section>
+
+  <!-- Real-Time Preview Carousel with 4 Slides -->
+  <section class="preview-container" aria-label="Real-Time T-shirt Preview">
+    <div class="preview-outer">
+      <button class="prev">‹</button>
+      <button class="next">›</button>
+      <div class="preview-box">
+        <div class="preview-slider">
+          <article class="tshirt-section preview-slide" data-view="front">
+            <img class="base-image" id="preview-front-base" src="" alt="Front T-shirt Preview">
+            <div class="designated-area">
+              <img class="overlay-image" id="preview-front-overlay" src="" alt="Front Design Preview" style="display:none;">
+            </div>
+          </article>
+          <article class="tshirt-section preview-slide" data-view="rightSleeve">
+            <img class="base-image" id="preview-rightSleeve-base" src="" alt="Right Sleeve T-shirt Preview">
+            <div class="designated-area">
+              <img class="overlay-image" id="preview-rightSleeve-overlay" src="" alt="Right Sleeve Design Preview" style="display:none;">
+            </div>
+          </article>
+          <article class="tshirt-section preview-slide" data-view="back">
+            <img class="base-image" id="preview-back-base" src="" alt="Back T-shirt Preview">
+            <div class="designated-area">
+              <img class="overlay-image" id="preview-back-overlay" src="" alt="Back Design Preview" style="display:none;">
+            </div>
+          </article>
+          <article class="tshirt-section preview-slide" data-view="leftSleeve">
+            <img class="base-image" id="preview-leftSleeve-base" src="" alt="Left Sleeve T-shirt Preview">
+            <div class="designated-area">
+              <img class="overlay-image" id="preview-leftSleeve-overlay" src="" alt="Left Sleeve Design Preview" style="display:none;">
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="preview-controls">
+        <input type="range" class="zoom-slider" min="50" max="200" value="100" aria-label="Zoom Control">
+        <span class="view-label">Front</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Saved Designs Gallery -->
+  <section class="saved-designs" aria-label="Saved Designs Gallery">
+    <h2>Saved Designs</h2>
+    <div id="saved-designs-list"></div>
+  </section>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+  <!-- Scripts -->
   <script src="{% static 'js/tshirtConfig.js' %}"></script>
-  <!-- Dropzone JS from CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
-  <script>
-    // Global variable to hold the current Dropzone instances so we can clear them on reinit if needed.
-    let currentDropzones = [];
-
-    // Initialize the customizer based on the selected variant configuration.
-    function initializeCustomizer(configKey) {
-      // Remove any previously created Dropzones
-      currentDropzones.forEach(dz => dz.destroy());
-      currentDropzones = [];
-
-      // Get the configuration for the selected variant
-      const config = tshirtConfigs[configKey];
-      if (!config) {
-        console.error("Configuration not found for key: " + configKey);
-        return;
-      }
-
-      // For each section, update the base image and setup the designated area & Dropzone.
-      Object.keys(config.sections).forEach(sectionKey => {
-        const sectionConfig = config.sections[sectionKey];
-        
-        // Update base image src
-        document.getElementById(sectionKey + "-base").src = sectionConfig.baseImage;
-        
-        // Configure the designated upload area
-        const dropzoneElem = document.querySelector("#" + sectionKey + "-dropzone");
-        dropzoneElem.style.position = "absolute";
-        dropzoneElem.style.top = sectionConfig.designatedArea.top;
-        dropzoneElem.style.left = sectionConfig.designatedArea.left;
-        dropzoneElem.style.width = sectionConfig.designatedArea.width;
-        dropzoneElem.style.height = sectionConfig.designatedArea.height;
-        dropzoneElem.style.border = "2px dashed #fff";
-        dropzoneElem.style.boxSizing = "border-box";
-        dropzoneElem.style.pointerEvents = "auto";
-
-        // Initialize Dropzone on the designated area
-        const dz = new Dropzone("#" + sectionKey + "-dropzone", {
-          url: sectionConfig.uploadEndpoint, // For future backend integration
-          maxFiles: 1,
-          acceptedFiles: "image/*",
-          autoProcessQueue: false, // Demo mode; processes file locally
-          clickable: dropzoneElem,
-          previewsContainer: false, // Disable default preview element
-          init: function() {
-            this.on("addedfile", function(file) {
-              // Hide any default preview element
-              if (file.previewElement) {
-                file.previewElement.style.display = "none";
-              }
-              // Process file via FileReader
-              const reader = new FileReader();
-              reader.onload = function(event) {
-                const overlayImg = document.querySelector("#" + sectionKey + "-overlay");
-                overlayImg.src = event.target.result;
-                overlayImg.style.display = "block";
-              };
-              reader.readAsDataURL(file);
-            });
-          }
-        });
-        currentDropzones.push(dz);
-      });
-    }
-
-    // When the page loads, initialize with the default selection.
-    document.addEventListener("DOMContentLoaded", function() {
-      const variantSelect = document.getElementById("clothingVariant");
-      // Initialize with the currently selected variant
-      initializeCustomizer(variantSelect.value);
-      
-      // On variant change, reinitialize the customizer.
-      variantSelect.addEventListener("change", function() {
-        initializeCustomizer(this.value);
-      });
-    });
-  </script>
+  <script src="{% static 'js/tshirt_customizer.js' %}"></script>
 </body>
 </html>

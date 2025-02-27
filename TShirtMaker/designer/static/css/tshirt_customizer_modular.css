@@ -1,17 +1,28 @@
+:root {
+  --bg-color: #121212;        /* Dark background for the app */
+  --text-color: #f1f1f1;      /* Light text for contrast */
+  --font-family: Arial, sans-serif;
+  --section-bg: #1e1e1e;      /* Background for t-shirt sections */
+  --border-color: #333;       /* Subtle border color */
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --button-bg: #007bff;       /* Blue background for buttons */
+  --button-hover: #0056b3;    /* Darker blue for hover state */
+}
+
+/* General Body Styling */
 body {
-  background-color: #121212;
-  color: #f1f1f1;
-  font-family: Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
   margin: 0;
   padding: 20px;
 }
 
-h1 {
+header h1 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-/* Style for the clothing variant selector */
 .variant-selector {
   text-align: center;
   margin-bottom: 20px;
@@ -22,7 +33,6 @@ h1 {
   font-size: 16px;
 }
 
-/* Container holding the t-shirt sections */
 .tshirt-container {
   display: flex;
   flex-wrap: wrap;
@@ -30,30 +40,31 @@ h1 {
   gap: 20px;
 }
 
-/* Each t-shirt section */
+/* T-shirt Section Styling (Shared by Customization and Preview) */
 .tshirt-section {
-  position: relative; /* Ensures absolute positioned elements inside are relative to this container */
+  position: relative;
   width: 300px;
-  border: 1px solid #333;
-  background-color: #1e1e1e;
+  border: 1px solid var(--border-color); /* Visible border in customization */
+  background-color: var(--section-bg);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 5px var(--shadow-color);
 }
 
-/* Base t-shirt image */
 .base-image {
   width: 100%;
   display: block;
 }
 
-/* Designated upload area */
-/* (Positioning is set dynamically via JavaScript based on configuration) */
 .designated-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 }
 
-/* Upload placeholder: using a plus icon for a subtle indication */
 .upload-placeholder {
   position: absolute;
   width: 100%;
@@ -67,9 +78,19 @@ h1 {
   color: #fff;
   font-size: 48px;
   opacity: 0.5;
+  transition: opacity 0.3s ease;
 }
 
-/* Overlay image: the printed design */
+.designated-area:hover .upload-placeholder,
+.designated-area:focus .upload-placeholder {
+  opacity: 0.7;
+}
+
+.designated-area:focus {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
 .overlay-image {
   position: absolute;
   top: 0;
@@ -77,6 +98,185 @@ h1 {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  opacity: 1; /* Full opacity */
+  opacity: 1;
   pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.designated-area.uploading .upload-placeholder::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid var(--text-color);
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.controls button {
+  padding: 10px 20px;
+  background-color: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.controls button:hover {
+  background-color: var(--button-hover);
+}
+
+/* Preview Carousel */
+.preview-container {
+  width: 400px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.preview-outer {
+  position: relative; /* Holds navigation and controls above the image box */
+}
+
+.preview-box {
+  width: 400px;
+  height: 300px;
+  overflow: hidden; /* Clips zoomed content */
+}
+
+.preview-slider {
+  display: flex;
+  width: 400%; /* 4 slides, each 25% */
+  height: 100%;
+  transition: transform 0.5s ease; /* Smooth sliding animation */
+}
+
+.preview-slide {
+  width: 25%; /* 100% / 4 slides */
+  border: none; /* No border in preview */
+}
+
+.preview-slide .designated-area {
+  border: none; /* Remove dashed border for realism */
+}
+
+/* Navigation and Controls */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--button-bg);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Visual cue for clickability */
+  z-index: 10; /* Ensures visibility over zoomed image */
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.prev:hover, .next:hover {
+  background-color: var(--button-hover);
+}
+
+.preview-controls {
+  text-align: center;
+  margin-top: 10px;
+  z-index: 10; /* Above zoomed image */
+  position: relative;
+}
+
+.zoom-slider {
+  width: 200px;
+}
+
+.view-label {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* Saved Designs Gallery */
+.saved-designs {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.saved-designs h2 {
+  margin-bottom: 10px;
+}
+
+.saved-design {
+  margin: 10px 0;
+}
+
+.saved-design span {
+  margin-right: 10px;
+}
+
+.saved-design button {
+  padding: 5px 10px;
+  background-color: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.saved-design button:hover {
+  background-color: var(--button-hover);
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .tshirt-section {
+    width: 90%;
+  }
+  
+  .tshirt-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .preview-container {
+    width: 90%;
+  }
 }
