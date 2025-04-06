@@ -1,0 +1,143 @@
+/* Reset styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f5f5f5;
+    padding: 10px;
+    padding-top: 50px; /* Reduced from 70px to match toolbar height */
+}
+
+#toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#toolbar label {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+button {
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+button:hover {
+    background: #1976D2;
+}
+
+button:focus {
+    outline: 2px solid #2196F3;
+    outline-offset: 2px;
+}
+
+#playground {
+    border: 1px solid #ccc;
+    background: #fff;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    min-height: 400px;
+    width: calc(100% - 260px);
+    float: left;
+}
+
+#imageToolbox {
+    position: fixed;
+    right: 0;
+    top: 50px; /* Adjusted from 70px to align with reduced body padding */
+    width: 240px;
+    background: #fff;
+    border-left: 1px solid #ccc;
+    padding: 15px;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    z-index: 15;
+}
+
+#imageToolbox.hidden {
+    transform: translateX(100%);
+}
+
+#imageToolbox h3, #imageToolbox h4 {
+    margin-bottom: 10px;
+}
+
+.modal {
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    width: 300px;
+    position: relative;
+    text-align: center;
+}
+
+.modal .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    #toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    #playground {
+        width: 100%;
+        float: none;
+    }
+    #imageToolbox {
+        position: fixed;
+        top: 50px; /* Adjusted for mobile */
+        width: 100%;
+        transform: translateY(100%);
+    }
+    #imageToolbox:not(.hidden) {
+        transform: translateY(0);
+    }
+}
+

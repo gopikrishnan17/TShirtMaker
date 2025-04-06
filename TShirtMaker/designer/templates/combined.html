@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>T-shirt Customizer</title>
+  <!-- External Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+  <!-- Existing CSS Files -->
+  <link rel="stylesheet" href="{% static 'css/tshirt_customizer_modular.css' %}">
+  <!-- Modal CSS -->
+  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+</head>
+<body>
+  <header>
+    <h1>T-shirt Customizer</h1>
+  </header>
+  
+  <!-- T-shirt Customizer Sections -->
+  <main class="tshirt-container" aria-label="T-shirt Display">
+    <!-- Front Section -->
+    <article class="tshirt-section" id="section-front">
+      <img class="base-image" id="front-base" src="{% static 'images/Black_tshirt_1.png' %}" alt="Front T-shirt">
+      <div class="designated-area" id="front-dropzone" tabindex="0" aria-label="Front Upload Area">
+         <div class="upload-placeholder">+</div>
+         <img class="overlay-image" id="front-overlay" src="" alt="Front Design" style="display:none;">
+         <button class="edit-btn" data-section="front">Edit Design</button>
+      </div>
+    </article>
+    
+    <!-- Back Section -->
+    <article class="tshirt-section" id="section-back">
+      <img class="base-image" id="back-base" src="{% static 'images/back_base.png' %}" alt="Back T-shirt">
+      <div class="designated-area" id="back-dropzone" tabindex="0" aria-label="Back Upload Area">
+         <div class="upload-placeholder">+</div>
+         <img class="overlay-image" id="back-overlay" src="" alt="Back Design" style="display:none;">
+         <button class="edit-btn" data-section="back">Edit Design</button>
+      </div>
+    </article>
+    
+    <!-- Left Sleeve Section -->
+    <article class="tshirt-section" id="section-leftSleeve">
+      <img class="base-image" id="leftSleeve-base" src="{% static 'images/leftSleeve_base.png' %}" alt="Left Sleeve T-shirt">
+      <div class="designated-area" id="leftSleeve-dropzone" tabindex="0" aria-label="Left Sleeve Upload Area">
+         <div class="upload-placeholder">+</div>
+         <img class="overlay-image" id="leftSleeve-overlay" src="" alt="Left Sleeve Design" style="display:none;">
+         <button class="edit-btn" data-section="leftSleeve">Edit Design</button>
+      </div>
+    </article>
+    
+    <!-- Right Sleeve Section -->
+    <article class="tshirt-section" id="section-rightSleeve">
+      <img class="base-image" id="rightSleeve-base" src="{% static 'images/rightSleeve_base.png' %}" alt="Right Sleeve T-shirt">
+      <div class="designated-area" id="rightSleeve-dropzone" tabindex="0" aria-label="Right Sleeve Upload Area">
+         <div class="upload-placeholder">+</div>
+         <img class="overlay-image" id="rightSleeve-overlay" src="" alt="Right Sleeve Design" style="display:none;">
+         <button class="edit-btn" data-section="rightSleeve">Edit Design</button>
+      </div>
+    </article>
+  </main>
+  
+  <!-- Modal Container -->
+  <div id="modalContainer" class="modal">
+    <div class="modal-content">
+      <span class="close" id="modalClose">&times;</span>
+      <iframe id="editorIframe" src="" frameborder="0"></iframe>
+    </div>
+  </div>
+  
+  <!-- Existing JS Files -->
+  <script src="{% static 'js/tshirtConfig.js' %}"></script>
+  <script src="{% static 'js/tshirt_customizer.js' %}"></script>
+  <script src="{% static 'js/core.js' %}"></script>
+  <script src="{% static 'js/image.js' %}"></script>
+  <script src="{% static 'js/text.js' %}"></script>
+  
+  <!-- Modal JS -->
+  <script src="{% static 'js/modal.js' %}"></script>
+</body>
+</html>
